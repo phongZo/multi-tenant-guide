@@ -16,11 +16,11 @@ public class DateUtils {
 
 	}
 
-	public static Date convertToDateViaInstant(LocalDate dateToConvert) {
-        return Date.from(dateToConvert.atStartOfDay()
-          .atZone(ZoneId.systemDefault())
-          .toInstant());
-    }
+	public static Date convertToDateViaInstant(LocalDateTime dateToConvert) {
+		return Date.from(dateToConvert
+				.atZone(ZoneId.systemDefault())
+				.toInstant());
+	}
 	
 	public static String formatDate(Date date) {
 		SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE);

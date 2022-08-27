@@ -1,9 +1,12 @@
 package com.landingis.api.controller;
 
-import com.landingis.api.storage.model.Account;
+import com.landingis.api.dto.ErrorCode;
+import com.landingis.api.exception.RequestException;
+import com.landingis.api.storage.master.model.Account;
 import com.landingis.api.constant.LandingISConstant;
 import com.landingis.api.intercepter.MyAuthentication;
 import com.landingis.api.jwt.UserJwt;
+import com.landingis.api.storage.master.model.Auditable;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -57,6 +60,14 @@ public class ABasicController {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         MyAuthentication authentication = (MyAuthentication)securityContext.getAuthentication();
         return Objects.equals(authentication.getJwtUser().getUserKind(), LandingISConstant.USER_KIND_ADMIN) && authentication.getJwtUser().getIsSuperAdmin();
+    }
+
+    public void checkActive(Auditable auditable) {
+        if(auditable == null) {
+            throw new RequestException(ErrorCode.GENERAL_ERROR_NOT_FOUND);
+        } else if(!auditable.getStatus().equals(LandingISConstant.STATUS_ACTIVE)) {
+            throw new RequestException(ErrorCode.GENERAL_ERROR_INACTIVE);
+        }
     }
 }
 

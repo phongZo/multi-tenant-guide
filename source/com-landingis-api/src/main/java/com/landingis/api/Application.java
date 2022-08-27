@@ -1,11 +1,11 @@
 package com.landingis.api;
 
-import com.landingis.api.storage.model.Account;
-import com.landingis.api.storage.model.Group;
-import com.landingis.api.storage.model.Permission;
-import com.landingis.api.storage.repository.AccountRepository;
-import com.landingis.api.storage.repository.GroupRepository;
-import com.landingis.api.storage.repository.PermissionRepository;
+import com.landingis.api.storage.master.model.Account;
+import com.landingis.api.storage.master.model.Group;
+import com.landingis.api.storage.master.model.Permission;
+import com.landingis.api.storage.master.repository.AccountRepository;
+import com.landingis.api.storage.master.repository.GroupRepository;
+import com.landingis.api.storage.master.repository.PermissionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

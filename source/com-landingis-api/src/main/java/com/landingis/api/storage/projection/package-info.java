@@ -1,1 +1,0 @@
-package com.landingis.api.storage.projection;

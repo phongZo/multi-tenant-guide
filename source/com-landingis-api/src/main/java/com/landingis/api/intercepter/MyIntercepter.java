@@ -7,6 +7,7 @@ package com.landingis.api.intercepter;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.landingis.api.cfg.tenants.TenantDbContext;
 import com.landingis.api.dto.ApiMessageDto;
 import com.landingis.api.jwt.JWTUtils;
 import com.landingis.api.jwt.UserJwt;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,9 +33,12 @@ public class MyIntercepter implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        log.debug("Starting calling [" + getUrl(httpServletRequest) + "]");
+
         if ( !httpServletRequest.getDispatcherType().name().equals("REQUEST") ) {
             return true;
         }
+
         long startTime = System.currentTimeMillis();
         httpServletRequest.setAttribute("startTime", startTime);
 
@@ -61,7 +66,7 @@ public class MyIntercepter implements HandlerInterceptor {
         }
 
         String authToken = header.substring(7);
-        DecodedJWT decodedJWT = JWTUtils.verifierJWT(JWTUtils.ALGORITHMS_HMAC, authToken);
+        DecodedJWT decodedJWT = JWTUtils.verifierJWT(JWTUtils.ALGORITHMS_RSA, authToken);
         if(decodedJWT == null){
             return false;
         }
@@ -70,8 +75,9 @@ public class MyIntercepter implements HandlerInterceptor {
         UserJwt qrJwt = JWTUtils.getSessionFromToken(decodedJWT);
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(new MyAuthentication(qrJwt));
+        TenantDbContext.setCurrentTenant(qrJwt.getTenantId());
 
-        log.info("jwt user verify ne: {}", qrJwt);
+        //log.info("jwt user verify ne: {}", qrJwt);
 
         //check permission here
         String requestUri = request.getRequestURI();
@@ -105,5 +111,11 @@ public class MyIntercepter implements HandlerInterceptor {
             log.error("afterCompletion>> " + e.getMessage());
 
         }
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        TenantDbContext.clear();
+        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
     }
 }

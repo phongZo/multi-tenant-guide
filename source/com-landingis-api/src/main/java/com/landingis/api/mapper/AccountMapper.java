@@ -5,7 +5,7 @@ import com.landingis.api.dto.account.AccountDto;
 import com.landingis.api.form.account.CreateAccountAdminForm;
 import com.landingis.api.form.account.UpdateAccountAdminForm;
 import com.landingis.api.form.account.UpdateProfileAdminForm;
-import com.landingis.api.storage.model.Account;
+import com.landingis.api.storage.master.model.Account;
 import org.mapstruct.*;
 
 import java.util.List;

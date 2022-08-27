@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.landingis.api.dto.group.GroupAdminDto;
 import com.landingis.api.dto.group.GroupDto;
-import com.landingis.api.storage.model.Group;
+import com.landingis.api.storage.master.model.Group;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;

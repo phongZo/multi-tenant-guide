@@ -1,0 +1,1 @@
+package com.landingis.api.storage.tenant.projection;
