@@ -3,7 +3,7 @@ package com.landingis.api.mapper;
 import com.landingis.api.dto.news.NewsDto;
 import com.landingis.api.form.news.CreateNewsForm;
 import com.landingis.api.form.news.UpdateNewsForm;
-import com.landingis.api.storage.model.News;
+import com.landingis.api.storage.master.model.News;
 import org.mapstruct.*;
 
 import java.util.List;

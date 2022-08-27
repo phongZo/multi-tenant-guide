@@ -3,7 +3,7 @@ package com.landingis.api.mapper;
 import com.landingis.api.dto.category.CategoryDto;
 import com.landingis.api.form.category.CreateCategoryForm;
 import com.landingis.api.form.category.UpdateCategoryForm;
-import com.landingis.api.storage.model.Category;
+import com.landingis.api.storage.master.model.Category;
 import org.mapstruct.*;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.landingis.api.mapper;
 
 import com.landingis.api.dto.permission.PermissionAdminDto;
 import com.landingis.api.dto.permission.PermissionDto;
-import com.landingis.api.storage.model.Permission;
+import com.landingis.api.storage.master.model.Permission;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

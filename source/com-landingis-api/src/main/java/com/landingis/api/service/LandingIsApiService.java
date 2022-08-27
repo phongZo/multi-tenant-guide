@@ -4,7 +4,7 @@ import com.landingis.api.dto.ApiMessageDto;
 import com.landingis.api.constant.LandingISConstant;
 import com.landingis.api.dto.UploadFileDto;
 import com.landingis.api.form.UploadFileForm;
-import com.landingis.api.storage.model.Permission;
+import com.landingis.api.storage.master.model.Permission;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;

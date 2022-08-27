@@ -14,15 +14,14 @@ import com.landingis.api.dto.account.AccountAdminDto;
 import com.landingis.api.dto.account.AccountDto;
 import com.landingis.api.dto.account.ForgetPasswordDto;
 import com.landingis.api.exception.RequestException;
-import com.landingis.api.form.account.*;
 import com.landingis.api.intercepter.MyAuthentication;
 import com.landingis.api.jwt.JWTUtils;
 import com.landingis.api.jwt.UserJwt;
-import com.landingis.api.storage.criteria.AccountCriteria;
-import com.landingis.api.storage.model.Account;
-import com.landingis.api.storage.model.Group;
-import com.landingis.api.storage.repository.AccountRepository;
-import com.landingis.api.storage.repository.GroupRepository;
+import com.landingis.api.storage.master.criteria.AccountCriteria;
+import com.landingis.api.storage.master.model.Account;
+import com.landingis.api.storage.master.model.Group;
+import com.landingis.api.storage.master.repository.AccountRepository;
+import com.landingis.api.storage.master.repository.GroupRepository;
 import com.landingis.api.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +39,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -89,7 +89,7 @@ public class AccountController extends ABasicController{
         }
 
         //Tao xong tra ve cai gi?
-        LocalDate parsedDate = LocalDate.now();
+        LocalDateTime parsedDate = LocalDateTime.now();
         parsedDate = parsedDate.plusDays(7);
 
         UserJwt qrJwt = new UserJwt();
@@ -108,7 +108,7 @@ public class AccountController extends ABasicController{
 
 
         log.info("jwt user ne: {}", qrJwt);
-        String token = JWTUtils.createJWT(JWTUtils.ALGORITHMS_HMAC, "authenticationToken.getId().toString()", qrJwt, DateUtils.convertToDateViaInstant(parsedDate));
+        String token = JWTUtils.createJWT(JWTUtils.ALGORITHMS_RSA, "authenticationToken.getId().toString()", qrJwt, DateUtils.convertToDateViaInstant(parsedDate));
         LoginDto loginDto = new LoginDto();
         loginDto.setFullName(account.getFullName());
         loginDto.setId(account.getId());
